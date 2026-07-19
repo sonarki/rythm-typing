@@ -108,3 +108,15 @@ Run: `git checkout dev && npm install && npm run dev` → open the printed URL (
 
 ## Do-not-repeat
 - (carried) verify test-expectation arithmetic; TextEncoder not Buffer; build before assuming green; weavrain branch ops are 403 from this session.
+
+# Handoff — 2026-07-19 addendum: standing rule — always publish a test link
+
+## Done (verified)
+- M2 test build published as a self-contained single-file artifact (private to the human's Claude account, shareable from its page): https://claude.ai/code/artifact/a0d1b872-485f-4a8c-b0e6-e6b1ddbede08 — built from `dev` @ `ce2d913` (vite build inlined; localStorage shim for sandboxed iframes).
+
+## Standing rules added/changed
+- **"테스트 링크는 항상 걸어줘"** — from now on, EVERY milestone/checkpoint report to the human must include a clickable test link of the current build. Procedure: `npm run build` → inline bundle into one HTML → republish the SAME artifact so the URL stays stable. From this session, republish the same file path (`scratchpad/tadak-test.html`); from any NEW session, pass `url: https://claude.ai/code/artifact/a0d1b872-485f-4a8c-b0e6-e6b1ddbede08` to the Artifact tool to keep the URL. Note: this is a private artifact, not a public deploy — CLAUDE.md §4's public-deploy approval gate is untouched.
+- Proposed CLAUDE.md edit (human applies): §3 Working discipline, add — "Every milestone report includes a test link (artifact) of the current build; keep the artifact URL stable across updates."
+
+## Next first action
+- (unchanged) Human runs the M2 fun-test checklist — now via the test link above (Chrome 권장, 물리 키보드) or locally with `npm run dev`.
