@@ -5,3 +5,5 @@ export type {
   MasteryNodeStats,
   MasterySnapshot,
 } from './model'
+export { computeSkillRing, guideLevel } from './progress'
+export type { SkillRing, SkillRingConfig, GuideLevel } from './progress'
