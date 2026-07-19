@@ -1,7 +1,8 @@
 /**
- * Performance Log & Tape Renderer (SPEC §4.5) — M2.
- * The M0 pieces that exist today live elsewhere: the {code, tPerf} log format
- * is `core/input`, and deterministic replay is `core/replay`. This module
- * will add the OfflineAudioContext render + WAV export in M2.
+ * Performance Log & Tape Renderer (SPEC §4.5). M2 pieces: the pure tape
+ * score builder and WAV encoder live here; the OfflineAudioContext render
+ * glue is UI-side (`src/ui/tapeRender.ts`) because core stays DOM-free.
  */
-export {}
+export { buildTapeScore } from './tapeScore'
+export type { TapeEvent, TapeScore, TapeOptions } from './tapeScore'
+export { encodeWavPcm16 } from './wav'
