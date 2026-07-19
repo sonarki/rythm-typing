@@ -67,3 +67,44 @@
 ## Do-not-repeat
 - weavrain branch deletion via `git push --delete` → 403 proxy rejection; do not retry from this session class — needs GitHub UI or a weavrain-authorized session.
 - (M0 items remain valid: verify test-expectation arithmetic; TextEncoder not Buffer; run `npm run build` before assuming green.)
+
+# Handoff — 2026-07-19 M2 complete (Percussion Mode playable) — FUN-TEST CHECKPOINT
+
+## Done (verified)
+- Percussion core (`src/core/percussion/`) — commit `eec1418`: 3 lessons (첫 그루브 72BPM 4-key full-snap onboarding → 홈로우 셔플 88 → 크로스로우 브레이크 104; snap 999→140→80ms per Grace v1 adaptive dial), pure call-and-response session machine: honest judgment + Grace-rendered times per hit, stray hits soft-not-silent (§1.1), phrase layering ≥70%, quit-anytime finalize (§1.5).
+- Session Tape core (`src/core/tape/`) — commit `09b4883`: pure TapeScore builder (count-in, hits at RENDERED times, layered-phrase echoes, ~32s cap, tail) + dependency-free PCM16 WAV encoder (header/clamping unit-tested).
+- Skill Ring v1 + guide progression (`src/core/mastery/progress.ts`) — commit `f01cf50`: coverage/precision ring math, guideLevel 0/1/2 (full glow → outline → minimal) with thresholds.
+- UI — commit `5e1c182`: synthesized lo-fi kit (kick/snare/hat/rim, deterministic pseudo-noise + pitch-vary, brightness-capped, glue-compressed master bus — zero external assets, CREDITS.md updated), PercussionScreen (canvas: beat pulse, phrase dots call→response, on-screen keyboard guide with finger-zone glow + call-key lighting + manual override select, pooled ripples ≤60, micro hit-stop ≤28ms on phrase finals, combo = background warmth, miss = brief desaturation, reduced-motion honored, Esc = finish-with-tape), quiet ending scene (tape auto-plays, ▶ replay, ⬇ WAV download, stats fade in small, Skill Ring), studio home with lesson list + ring. Feedback in-world only — no popups, no floating numbers.
+- Gate: `npm test` → **11 files, 129 tests, all green**; `src/core` statements **98.95%** (threshold 80%). `npm run build` clean (tsc strict). Dev server smoke: HTTP 200 on `/` and `/src/ui/PercussionScreen.tsx`. All pushed on `dev`.
+
+## Human fun-test checklist (M2 checkpoint — the actual gate)
+Run: `git checkout dev && npm install && npm run dev` → open the printed URL (Chrome/Edge 권장).
+1. **calibration 탭**: ▶ start → 스페이스로 클릭에 맞춰 16탭 → 오프셋 ms 저장 확인.
+2. **home → 01 첫 그루브**: ▶ 시작 → 리듬이 먼저 치고(listen), 다음 마디에 따라 치기(play). 확인할 것: 첫 판에 "완주했다"는 느낌이 드는가? 서툴게 쳐도 소리가 포켓 안에 있는가(전부 박에 실려 들리는가)?
+3. **엔딩**: 조용한 화면에서 테이프가 자동 재생되는가? ⬇ WAV로 저장한 파일이 플레이어에서 재생되는가? 스탯이 뒤늦게 작게 떠오르는가?
+4. **02, 03 레슨**: 난이도가 층계처럼 느껴지는가? 03에서 스냅이 조여진 게 체감되는가?
+5. **주스**: 콤보가 이어질 때 배경이 미세하게 따뜻해지는가? 미스에 회색이 잠깐 스치는가(빨강/셰이크 없음)? 프레이즈 마지막 히트의 미세 멈춤이 느껴지는가?
+6. **가이드**: 우상단 guide 셀렉트로 full/outline/minimal 전환이 되는가? (auto는 숙련도 축적 후 자동 하강)
+7. **Esc 중도 이탈**: 그래도 테이프가 만들어지는가?
+### 피드백으로 필요한 것 (자유 서술)
+- 한 판 더 하고 싶은가? (CLAUDE.md §7 — 아니라면 그것이 버그)
+- 소리: 거슬리는 음이 하나라도 있었는가? 킷 중 가장 약한 소리는?
+- 첫 레슨이 너무 쉬운가/긴가? BPM·프레이즈 수 조정 의견.
+- 판정이 억울한 순간(맞게 쳤는데 miss)이 있었는가 — 있었다면 calibration 후에도 그런가?
+
+## Not done / in flight
+- Tape Shelf(선반에 테이프 쌓이기)와 온보딩 문구 다듬기 — §E상 M4/M2 폴리시 여지; 현 홈은 레슨 목록 + Skill Ring.
+- Playwright 스모크 — 여전히 브리프 비요구, 미착수.
+- 60fps 실측 프로파일링 — 헤드리스 환경에서는 불가; 재미 테스트 시 크롬 Performance 패널로 한 번 확인 권장(설계상 rAF 단일 캔버스 + 풀링, 프레임당 할당 최소화).
+
+## Decisions made by the human this session
+- "M1 is accepted … Proceed to Milestone M2 … prefer synthesized one-shots (Web Audio) over external files at this stage."
+
+## Standing rules added/changed
+- None new (addendum §E already folded).
+
+## Next first action
+- Human runs the fun-test checklist above and reports; M3 (Groove Mode + ADSM) starts only after feel feedback is folded back into Percussion.
+
+## Do-not-repeat
+- (carried) verify test-expectation arithmetic; TextEncoder not Buffer; build before assuming green; weavrain branch ops are 403 from this session.
